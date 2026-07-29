@@ -1,0 +1,9 @@
+.env
+.demo_tenant
+.demo_keep
+results.jsonl
+real/*
+!real/.gitkeep
+__pycache__/
+.vscode/
+.DS_Store
