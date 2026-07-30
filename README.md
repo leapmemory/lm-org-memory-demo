@@ -7,27 +7,7 @@ remembers all of it, knows who said what, and can brief a new hire on day one.
 
 Built on [LeapMemory](https://leapmemory.com). Runs against the live API.
 
-```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#FFFFFF','primaryTextColor':'#26251F','primaryBorderColor':'#E2DBC9','lineColor':'#8A8677','clusterBkg':'#16382C','clusterBorder':'#16382C','fontFamily':'ui-sans-serif, system-ui, sans-serif','fontSize':'14px'}}}%%
-flowchart LR
-    S["Slack"] --> F
-    W["WhatsApp"] --> F
-    E["Email"] --> F
-    D["Support desk"] --> F
-    A["Company agent"] --> F
-
-    F["Your forwarder<br/>no memory logic"]
-
-    subgraph LM["LeapMemory"]
-        T["acme-corp<br/>one tenant, isolated databases"]
-    end
-
-    F -- "turns in" --> T
-    T -- "recall + briefing, free" --> F
-
-    classDef tenant fill:#0E2A20,stroke:#0E2A20,color:#DCE9E1
-    class T tenant
-```
+![Every channel, one company memory](assets/channels.png)
 
 ---
 
@@ -138,26 +118,7 @@ One tenant per company is the default. When some knowledge should not reach
 everyone, use more tenants. People write into the tenants they belong to, and
 each assistant loads only the briefings its user is entitled to.
 
-```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#FFFFFF','primaryTextColor':'#26251F','primaryBorderColor':'#E2DBC9','lineColor':'#8A8677','clusterBkg':'#16382C','clusterBorder':'#16382C','fontFamily':'ui-sans-serif, system-ui, sans-serif','fontSize':'14px'}}}%%
-flowchart LR
-    EMP["Employee"]
-    EXEC["Executive"]
-
-    subgraph LM["LeapMemory"]
-        C["acme-corp<br/>own databases"]
-        L["acme-leadership<br/>own databases"]
-    end
-
-    EMP <--> C
-    EXEC <--> C
-    EXEC <--> L
-    L -. "no path exists" .-> EMP
-
-    classDef tenant fill:#0E2A20,stroke:#0E2A20,color:#DCE9E1
-    class C,L tenant
-    linkStyle 3 stroke:#C46B6B,stroke-dasharray:4 4
-```
+![One company, several memories](assets/hierarchy.png)
 
 The separation is physical. Each tenant has its own databases, so there is no
 query path from one to the other and no filter to get wrong. A recall key

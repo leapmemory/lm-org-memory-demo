@@ -21,6 +21,7 @@ Or pipe a file of the same "speaker: message" lines:
 
     cat notes.txt | python3 forward.py
 """
+
 import json
 import os
 import sys
