@@ -92,8 +92,8 @@ the customers, the decisions, and the history.
 Your integration is a thin forwarder. Whatever the team already talks through,
 forward each message as a turn:
 
-    POST /v1/tenants/acme-corp/turns
-    {"role": "user", "speaker_id": "mert", "content": "<the message>"}
+    POST /v1/tenants/ridgeline/turns
+    {"role": "user", "speaker_id": "mike", "content": "<the message>"}
 
 `speaker_id` is the whole trick. It is what makes "who decided this, and why"
 answerable later.
@@ -120,18 +120,24 @@ each assistant loads only the briefings its user is entitled to.
 
 ![One company, several memories](assets/hierarchy.png)
 
-The separation is physical. Each tenant has its own databases, so there is no
+The separation is structural. Each tenant has its own databases, so there is no
 query path from one to the other and no filter to get wrong. A recall key
-scoped to `acme-corp` returns `403 scope_denied` against `acme-leadership`.
+scoped to `ridgeline` returns `403 scope_denied` against `ridgeline-leadership`.
 
-Trade-offs, stated plainly: the graphs do not cross-link, and a turn forwarded
-to two tenants is billed twice.
+Each tenant is complete on its own: its own graph, its own briefing, its own
+history. A turn that belongs in two tenants is forwarded to both; each keeps a
+full copy, and each copy is a billed memory.
 
 ## What this repo does not do
 
 - No self-serve org signup. Today an org runs through a developer account.
 - No visibility scopes inside a single tenant. Use separate tenants.
 - No real channel integrations, by choice. See above.
+
+## Running this for a real team?
+
+The full picture, including the memory hierarchy and day-one briefing:
+[leapmemory.com/organizations](https://leapmemory.com/organizations)
 
 ## Docs
 
